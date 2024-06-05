@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_provider_practice/projects/counter-app/provider/counter_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../theme-change/providers/theme_change_provider.dart';
+import '../provider/counter_provider.dart';
 
 class CounterScreen extends StatefulWidget {
   const CounterScreen({super.key});
@@ -15,6 +17,21 @@ class _CounterScreenState extends State<CounterScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Counter App Using Provider"),
+        actions: [
+          (context.read<ThemeChangeProvider>().currentTheme == ThemeMode.dark)
+              ? IconButton(
+                  onPressed: () {
+                    context.read<ThemeChangeProvider>().toggleTheme(false);
+                  },
+                  icon: const Icon(Icons.light_mode),
+                )
+              : IconButton(
+                  onPressed: () {
+                    context.read<ThemeChangeProvider>().toggleTheme(true);
+                  },
+                  icon: const Icon(Icons.dark_mode),
+                )
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
