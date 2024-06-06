@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_provider_practice/projects/example-one/providers/example-one-provider.dart';
+import 'package:flutter_provider_practice/projects/favourites-app/providers/favourite_provider.dart';
+import 'package:flutter_provider_practice/projects/favourites-app/screens/favourites-screen.dart';
+import 'package:flutter_provider_practice/route_generator.dart';
 import 'package:provider/provider.dart';
 
 import 'projects/counter-app/provider/counter_provider.dart';
@@ -27,21 +30,34 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ExampleOneProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => FavouriteItems(),
+        ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-          useMaterial3: true,
-        ),
-        themeMode: ThemeMode.dark,
-        home: const ExampleOneScreen(),
-      ),
+      child: Builder(builder: (context) {
+        final themeChanger = Provider.of<ThemeChangeProvider>(context);
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.deepPurple,
+              brightness: Brightness.light,
+            ),
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.orange,
+              brightness: Brightness.dark,
+            ),
+            useMaterial3: true,
+          ),
+          themeMode: themeChanger.currentTheme,
+          initialRoute: "/",
+          onGenerateRoute: RouteGenerator.generateRoutes,
+        );
+      }),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class ThemeChangeProvider extends ChangeNotifier {
@@ -5,12 +7,18 @@ class ThemeChangeProvider extends ChangeNotifier {
 
   ThemeMode get currentTheme => _currentTheme;
 
-  void toggleTheme(bool val) {
-    if (val) {
-      _currentTheme = ThemeMode.dark;
-    } else {
-      _currentTheme = ThemeMode.light;
-    }
+  set currentTheme(ThemeMode mode) {
+    _currentTheme = mode;
     notifyListeners();
+  }
+
+  void toggleTheme(bool val) {
+    log("Val : $val");
+    if (val) {
+      currentTheme = ThemeMode.dark;
+    } else {
+      currentTheme = ThemeMode.light;
+    }
+    // notifyListeners();
   }
 }

@@ -17,21 +17,6 @@ class _CounterScreenState extends State<CounterScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Counter App Using Provider"),
-        actions: [
-          (context.read<ThemeChangeProvider>().currentTheme == ThemeMode.dark)
-              ? IconButton(
-                  onPressed: () {
-                    context.read<ThemeChangeProvider>().toggleTheme(false);
-                  },
-                  icon: const Icon(Icons.light_mode),
-                )
-              : IconButton(
-                  onPressed: () {
-                    context.read<ThemeChangeProvider>().toggleTheme(true);
-                  },
-                  icon: const Icon(Icons.dark_mode),
-                )
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
